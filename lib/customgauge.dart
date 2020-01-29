@@ -7,9 +7,15 @@ import 'package:flutter/widgets.dart';
 
 ///Class that holds the details of each segment on a CustomGauge
 class GaugeSegment {
-  final String segmentName; ///Name of the segment
-  final double segmentSize; ///The size of the segment
-  final Color segmentColor; ///The color of the segment
+  final String segmentName;
+
+  ///Name of the segment
+  final double segmentSize;
+
+  ///The size of the segment
+  final Color segmentColor;
+
+  ///The color of the segment
 
   GaugeSegment(this.segmentName, this.segmentSize, this.segmentColor);
 }
@@ -98,32 +104,43 @@ class GaugeMarkerPainter extends CustomPainter {
 class CustomGauge extends StatefulWidget {
   ///Size of the widget - This widget is rendered in a square shape
   final double gaugeSize;
-  ///Supply the list of segments in the Gauge. 
+
+  ///Supply the list of segments in the Gauge.
   ///
   ///If nothing is supplied, the gauge will have one segment with a segment size of (Max Value - Min Value)
   ///painted in defaultSegmentColor
   ///
   ///Each segment is represented by a GaugeSegment object that has a name, segment size and color
   final List<GaugeSegment> segments;
+
   ///Supply a min value for the Gauge. Defaults to 0
   final double minValue;
+
   ///Supply a max value for the Gauge. Defaults to 100
   final double maxValue;
+
   ///Current value of the Gauge
   final double currentValue;
+
   ///Custom color for the needle on the Gauge. Defaults to Colors.black
   final Color needleColor;
+
   ///The default Segment color. Defaults to Colors.grey
   final Color defaultSegmentColor;
+
   ///Widget that is used to show the current value on the Gauge. Defaults to show the current value as a Decimal with 1 digit
   ///If value must not be shown, supply Container()
   final Widget valueWidget;
+
   ///Widget to show any other text for the Gauge. Defaults to Container()
   final Widget displayWidget;
+
   ///Specify if you want to display Min and Max value on the Gauge widget
   final bool showMarkers;
+
   ///Custom styling for the Min marker. Defaults to black font with size 10
   final TextStyle startMarkerStyle;
+
   ///Custom styling for the Max marker. Defaults to black font with size 10
   final TextStyle endMarkerStyle;
 
@@ -143,11 +160,11 @@ class CustomGauge extends StatefulWidget {
       this.showMarkers = true,
       this.startMarkerStyle =
           const TextStyle(fontSize: 10, color: Colors.black),
-      this.endMarkerStyle = const TextStyle(fontSize: 10, color: Colors.black)});
+      this.endMarkerStyle =
+          const TextStyle(fontSize: 10, color: Colors.black)});
 }
 
-class _CustomGaugeState extends State<CustomGauge> {  
-
+class _CustomGaugeState extends State<CustomGauge> {
   //This method builds out multiple arcs that make up the Gauge
   //using data supplied in the segments property
   List<Widget> buildGauge(List<GaugeSegment> segments) {
@@ -183,10 +200,10 @@ class _CustomGaugeState extends State<CustomGauge> {
     List<GaugeSegment> _segments = widget.segments;
     double _currentValue = widget.currentValue;
 
-    if(widget.currentValue < widget.minValue){
-     _currentValue = widget.minValue;
+    if (widget.currentValue < widget.minValue) {
+      _currentValue = widget.minValue;
     }
-    if(widget.currentValue > widget.maxValue){
+    if (widget.currentValue > widget.maxValue) {
       _currentValue = widget.maxValue;
     }
 
@@ -258,4 +275,3 @@ class _CustomGaugeState extends State<CustomGauge> {
     );
   }
 }
-
