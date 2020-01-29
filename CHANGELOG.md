@@ -1,3 +1,3 @@
-## 1.0.0
+## 1.0.1
 
-* First full featured release
+* Minor updates in response to Flutter pub suggestions
