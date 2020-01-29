@@ -1,7 +1,7 @@
 # customgauge
 Fully customizable Gauge widget for Flutter
 
-<img src="https://github.com/jagan999/customgauge/raw/master/GaugeExample.jpg" height="320px" >
+<img src="https://github.com/jagan999/customgauge/raw/master/GaugeExample.jpg" height="480px" >
 
 ## Installing:
 In your pubspec.yaml, add the following dependency

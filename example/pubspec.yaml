@@ -1,9 +1,9 @@
 name: customgauge_example
-description: Demonstrates how to use the customgauge package
+description: Demonstrates how to use the customgauge plugin.
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:

@@ -1,6 +1,6 @@
-# gauge_example
+# customgauge_example
 
-Demonstrates how to use the gauge plugin.
+Demonstrates how to use the customgauge plugin.
 
 ## Getting Started
 
