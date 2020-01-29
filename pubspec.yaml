@@ -1,7 +1,6 @@
 name: customgauge
 description: Fully customizable Gauge widget for Flutter
 version: 1.0.0
-author:
 homepage: https://github.com/jagan999/customgauge
 
 environment:
