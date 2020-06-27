@@ -54,10 +54,10 @@ class ArcPainter extends CustomPainter {
     final rect = Rect.fromLTRB(size.width * 0.1, size.height * 0.1,
         size.width * 0.9, size.height * 0.9);
 
-    final useCenter = false;
+    const useCenter = false;
 
     final paint = Paint()
-      ..color = this.color
+      ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.15;
 
@@ -213,8 +213,9 @@ class _CustomGaugeState extends State<CustomGauge> {
       _segments.forEach((segment) {
         totalSegmentSize = totalSegmentSize + segment.segmentSize;
       });
-      if (totalSegmentSize != (widget.maxValue - widget.minValue))
+      if (totalSegmentSize != (widget.maxValue - widget.minValue)) {
         throw Exception('Total segment size must equal (Max Size - Min Size)');
+      }
     } else {
       //If no segments are supplied, default to one segment with default color
       _segments = [
@@ -226,52 +227,61 @@ class _CustomGaugeState extends State<CustomGauge> {
     return Container(
       height: widget.gaugeSize,
       width: widget.gaugeSize,
-      child: Stack(children: <Widget>[
-        ...buildGauge(_segments),
-        widget.showMarkers
-            ? CustomPaint(
-                size: Size(widget.gaugeSize, widget.gaugeSize),
-                painter: GaugeMarkerPainter(
-                    widget.minValue.toString(),
-                    Offset(widget.gaugeSize * 0.1, widget.gaugeSize * 0.85),
-                    widget.startMarkerStyle))
-            : Container(),
-        widget.showMarkers
-            ? CustomPaint(
-                size: Size(widget.gaugeSize, widget.gaugeSize),
-                painter: GaugeMarkerPainter(
-                    widget.maxValue.toString(),
-                    Offset(widget.gaugeSize * 0.8, widget.gaugeSize * 0.85),
-                    widget.endMarkerStyle))
-            : Container(),
-        Container(
-          alignment: Alignment.center,
-          child: Transform.rotate(
-            angle: (math.pi / 4) +
-                ((_currentValue - widget.minValue) /
-                    (widget.maxValue - widget.minValue) *
-                    1.5 *
-                    math.pi),
-            child: ClipPath(
-              clipper: GaugeNeedleClipper(),
-              child: Container(
-                width: widget.gaugeSize * 0.75,
-                height: widget.gaugeSize * 0.75,
-                color: widget.needleColor,
+      child: Stack(
+        children: <Widget>[
+          ...buildGauge(_segments),
+          widget.showMarkers
+              ? CustomPaint(
+                  size: Size(widget.gaugeSize, widget.gaugeSize),
+                  painter: GaugeMarkerPainter(
+                      widget.minValue.toString(),
+                      Offset(widget.gaugeSize * 0.1, widget.gaugeSize * 0.85),
+                      widget.startMarkerStyle))
+              : Container(),
+          widget.showMarkers
+              ? CustomPaint(
+                  size: Size(widget.gaugeSize, widget.gaugeSize),
+                  painter: GaugeMarkerPainter(
+                      widget.maxValue.toString(),
+                      Offset(widget.gaugeSize * 0.8, widget.gaugeSize * 0.85),
+                      widget.endMarkerStyle))
+              : Container(),
+          Container(
+            height: widget.gaugeSize,
+            width: widget.gaugeSize,
+            alignment: Alignment.center,
+            child: Transform.rotate(
+              angle: (math.pi / 4) +
+                  ((_currentValue - widget.minValue) /
+                      (widget.maxValue - widget.minValue) *
+                      1.5 *
+                      math.pi),
+              child: ClipPath(
+                clipper: GaugeNeedleClipper(),
+                child: Container(
+                  width: widget.gaugeSize * 0.75,
+                  height: widget.gaugeSize * 0.75,
+                  color: widget.needleColor,
+                ),
               ),
             ),
           ),
-        ),
-        Center(
+          Container(
+            height: widget.gaugeSize,
+            width: widget.gaugeSize,
+            alignment: Alignment.center,
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-              widget.displayWidget ?? Container(),
-              widget.valueWidget ??
-                  Text('${_currentValue.toStringAsFixed(1)}',
-                      style: TextStyle(fontSize: 10)),
-            ]))
-      ]),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                widget.displayWidget ?? Container(),
+                widget.valueWidget ??
+                    Text('${_currentValue.toStringAsFixed(1)}',
+                        style: const TextStyle(fontSize: 10)),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
