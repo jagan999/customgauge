@@ -144,11 +144,21 @@ class CustomGauge extends StatefulWidget {
   ///Custom styling for the Max marker. Defaults to black font with size 10
   final TextStyle endMarkerStyle;
 
+  ///The definition if this widget will be animated or not on value changes
+  final bool animate;
+
+  ///The duration to be applied to animation
+  final Duration animationDuration;
+
+  ///The curve to be used on animation
+  final Curve animationCurve;
+
   @override
   _CustomGaugeState createState() => _CustomGaugeState();
 
   CustomGauge(
-      {this.gaugeSize = 200,
+      {Key key,
+      this.gaugeSize = 200,
       this.segments,
       this.minValue = 0,
       this.maxValue = 100.0,
@@ -160,8 +170,11 @@ class CustomGauge extends StatefulWidget {
       this.showMarkers = true,
       this.startMarkerStyle =
           const TextStyle(fontSize: 10, color: Colors.black),
-      this.endMarkerStyle =
-          const TextStyle(fontSize: 10, color: Colors.black)});
+      this.endMarkerStyle = const TextStyle(fontSize: 10, color: Colors.black),
+      this.animate = true,
+      this.animationDuration = const Duration(milliseconds: 500),
+      this.animationCurve = Curves.easeInOut})
+      : super(key: key);
 }
 
 class _CustomGaugeState extends State<CustomGauge> {
@@ -250,18 +263,25 @@ class _CustomGaugeState extends State<CustomGauge> {
             height: widget.gaugeSize,
             width: widget.gaugeSize,
             alignment: Alignment.center,
-            child: Transform.rotate(
-              angle: (math.pi / 4) +
-                  ((_currentValue - widget.minValue) /
-                      (widget.maxValue - widget.minValue) *
-                      1.5 *
-                      math.pi),
-              child: ClipPath(
-                clipper: GaugeNeedleClipper(),
-                child: Container(
-                  width: widget.gaugeSize * 0.75,
-                  height: widget.gaugeSize * 0.75,
-                  color: widget.needleColor,
+            child: TweenAnimationBuilder(
+              curve: widget.animationCurve,
+              duration: widget.animate
+                  ? widget.animationDuration
+                  : const Duration(seconds: 0),
+              tween: Tween<double>(begin: 0.0, end: _currentValue),
+              builder: (context, value, child) => Transform.rotate(
+                angle: (math.pi / 4) +
+                    ((value - widget.minValue) /
+                        (widget.maxValue - widget.minValue) *
+                        1.5 *
+                        math.pi),
+                child: ClipPath(
+                  clipper: GaugeNeedleClipper(),
+                  child: Container(
+                    width: widget.gaugeSize * 0.75,
+                    height: widget.gaugeSize * 0.75,
+                    color: widget.needleColor,
+                  ),
                 ),
               ),
             ),
