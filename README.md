@@ -1,7 +1,8 @@
 # customgauge
 Fully customizable Gauge widget for Flutter
 
-<img src="https://github.com/jagan999/customgauge/raw/master/GaugeExample.jpg" height="480px" >
+<img src="GaugeExample.jpg" height="480px" >
+<img src="GaugeExampleAnimated.gif" height="480px" >
 
 ## Installing:
 In your pubspec.yaml, add the following dependency
@@ -33,6 +34,7 @@ CustomGauge(
 * Needle color can be customized
 * Display and Value widget can be customized, so that you can display what you want on the Gauge
 * Can turn on/off markers that display Min and Max value on the Gauge. You can even style these markers!
+* Animated transition by default. Can be customized or disabled.
 
 ## License:
 This project is licensed under the BSD 2-Clause license - see the LICENSE file for details
