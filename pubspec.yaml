@@ -1,6 +1,6 @@
 name: customgauge
 description: Fully customizable Gauge widget for Flutter with options for multiple segments, colors and customizable styling for displaying current value and text
-version: 1.0.1
+version: 1.1.0
 homepage: https://github.com/jagan999/customgauge
 
 environment:
