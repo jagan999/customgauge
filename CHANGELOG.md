@@ -1,3 +1,3 @@
-## 1.0.1
+## 2.0.0
 
-* Minor updates in response to Flutter pub suggestions
+* Migration to null safety from package [customgauge](https://pub.dev/packages/customgauge) 

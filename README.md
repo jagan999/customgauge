@@ -1,20 +1,20 @@
 # customgauge
 Fully customizable Gauge widget for Flutter
 
-<img src="https://github.com/jagan999/customgauge/raw/master/GaugeExample.jpg" height="480px" >
+<img src="https://github.com/JErazo7/gauge/raw/master/GaugeExample.jpg" height="480px" >
 
 ## Installing:
 In your pubspec.yaml, add the following dependency
 ```yaml
 dependencies:
-  customgauge: 1.0.0
+  gauge: 2.0.0
 ```
 
 ## Example Usage:
 ```dart
-import 'package:customgauge/customgauge.dart';
+import 'package:gauge/gauge.dart';
 
-CustomGauge(
+Gauge(
     gaugeSize: 200,
     segments: [
         GaugeSegment('Low', 20, Colors.red),

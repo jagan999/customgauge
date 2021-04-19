@@ -1,4 +1,4 @@
-library customgauge;
+library gauge;
 
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -101,7 +101,7 @@ class GaugeMarkerPainter extends CustomPainter {
 }
 
 ///Customizable Gauge widget for Flutter
-class CustomGauge extends StatefulWidget {
+class Gauge extends StatefulWidget {
   ///Size of the widget - This widget is rendered in a square shape
   final double gaugeSize;
 
@@ -145,9 +145,9 @@ class CustomGauge extends StatefulWidget {
   final TextStyle endMarkerStyle;
 
   @override
-  _CustomGaugeState createState() => _CustomGaugeState();
+  _GaugeState createState() => _GaugeState();
 
-  const CustomGauge(
+  const Gauge(
       {Key? key,
       this.gaugeSize = 200,
       this.segments,
@@ -165,7 +165,7 @@ class CustomGauge extends StatefulWidget {
       : super(key: key);
 }
 
-class _CustomGaugeState extends State<CustomGauge> {
+class _GaugeState extends State<Gauge> {
   //This method builds out multiple arcs that make up the Gauge
   //using data supplied in the segments property
   List<Widget> buildGauge(List<GaugeSegment> segments) {
