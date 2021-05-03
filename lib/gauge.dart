@@ -1,4 +1,4 @@
-library customgauge;
+library gauge;
 
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -101,7 +101,7 @@ class GaugeMarkerPainter extends CustomPainter {
 }
 
 ///Customizable Gauge widget for Flutter
-class CustomGauge extends StatefulWidget {
+class Gauge extends StatefulWidget {
   ///Size of the widget - This widget is rendered in a square shape
   final double gaugeSize;
 
@@ -111,7 +111,7 @@ class CustomGauge extends StatefulWidget {
   ///painted in defaultSegmentColor
   ///
   ///Each segment is represented by a GaugeSegment object that has a name, segment size and color
-  final List<GaugeSegment> segments;
+  final List<GaugeSegment>? segments;
 
   ///Supply a min value for the Gauge. Defaults to 0
   final double minValue;
@@ -120,7 +120,7 @@ class CustomGauge extends StatefulWidget {
   final double maxValue;
 
   ///Current value of the Gauge
-  final double currentValue;
+  final double? currentValue;
 
   ///Custom color for the needle on the Gauge. Defaults to Colors.black
   final Color needleColor;
@@ -130,10 +130,10 @@ class CustomGauge extends StatefulWidget {
 
   ///Widget that is used to show the current value on the Gauge. Defaults to show the current value as a Decimal with 1 digit
   ///If value must not be shown, supply Container()
-  final Widget valueWidget;
+  final Widget? valueWidget;
 
   ///Widget to show any other text for the Gauge. Defaults to Container()
-  final Widget displayWidget;
+  final Widget? displayWidget;
 
   ///Specify if you want to display Min and Max value on the Gauge widget
   final bool showMarkers;
@@ -145,10 +145,11 @@ class CustomGauge extends StatefulWidget {
   final TextStyle endMarkerStyle;
 
   @override
-  _CustomGaugeState createState() => _CustomGaugeState();
+  _GaugeState createState() => _GaugeState();
 
-  CustomGauge(
-      {this.gaugeSize = 200,
+  const Gauge(
+      {Key? key,
+      this.gaugeSize = 200,
       this.segments,
       this.minValue = 0,
       this.maxValue = 100.0,
@@ -160,11 +161,11 @@ class CustomGauge extends StatefulWidget {
       this.showMarkers = true,
       this.startMarkerStyle =
           const TextStyle(fontSize: 10, color: Colors.black),
-      this.endMarkerStyle =
-          const TextStyle(fontSize: 10, color: Colors.black)});
+      this.endMarkerStyle = const TextStyle(fontSize: 10, color: Colors.black)})
+      : super(key: key);
 }
 
-class _CustomGaugeState extends State<CustomGauge> {
+class _GaugeState extends State<Gauge> {
   //This method builds out multiple arcs that make up the Gauge
   //using data supplied in the segments property
   List<Widget> buildGauge(List<GaugeSegment> segments) {
@@ -197,13 +198,13 @@ class _CustomGaugeState extends State<CustomGauge> {
 
   @override
   Widget build(BuildContext context) {
-    List<GaugeSegment> _segments = widget.segments;
-    double _currentValue = widget.currentValue;
+    List<GaugeSegment>? _segments = widget.segments;
+    double? _currentValue = widget.currentValue;
 
-    if (widget.currentValue < widget.minValue) {
+    if (widget.currentValue! < widget.minValue) {
       _currentValue = widget.minValue;
     }
-    if (widget.currentValue > widget.maxValue) {
+    if (widget.currentValue! > widget.maxValue) {
       _currentValue = widget.maxValue;
     }
 
@@ -224,7 +225,7 @@ class _CustomGaugeState extends State<CustomGauge> {
       ];
     }
 
-    return Container(
+    return SizedBox(
       height: widget.gaugeSize,
       width: widget.gaugeSize,
       child: Stack(
@@ -252,7 +253,7 @@ class _CustomGaugeState extends State<CustomGauge> {
             alignment: Alignment.center,
             child: Transform.rotate(
               angle: (math.pi / 4) +
-                  ((_currentValue - widget.minValue) /
+                  ((_currentValue! - widget.minValue) /
                       (widget.maxValue - widget.minValue) *
                       1.5 *
                       math.pi),
